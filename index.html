@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+  <title>Vincenzo Sette | Sette Consulting</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 32px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont,
+                   "Segoe UI", sans-serif;
+      background: #f1f3f5;
+      color: #20252b;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 410px;
+      padding: 36px 26px;
+      background: white;
+      border-radius: 22px;
+      text-align: center;
+      box-shadow: 0 12px 40px rgba(0,0,0,.09);
+    }
+
+    .avatar {
+      width: 86px;
+      height: 86px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: #173c35;
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 30px;
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: 27px;
+      margin: 0 0 8px;
+    }
+
+    .role {
+      color: #66717a;
+      margin: 0 0 6px;
+    }
+
+    .company {
+      font-weight: 600;
+      margin: 0 0 30px;
+    }
+
+    .details {
+      text-align: left;
+      border-top: 1px solid #e8ebed;
+      padding-top: 20px;
+    }
+
+    .details a {
+      display: block;
+      padding: 12px 0;
+      color: #253c38;
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+
+    .save {
+      display: block;
+      width: 100%;
+      padding: 17px;
+      margin-top: 24px;
+      background: #173c35;
+      color: white;
+      border: 0;
+      border-radius: 12px;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .hint {
+      color: #7c858b;
+      font-size: 12px;
+      margin-top: 18px;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="avatar">VS</div>
+
+    <h1>Vincenzo Sette</h1>
+    <p class="role">Geschäftsführer</p>
+    <p class="company">Sette Consulting GmbH</p>
+
+    <div class="details">
+      <a href="tel:+41762303330">
+        ☎ +41 76 230 33 30
+      </a>
+
+      <a href="mailto:vs@setteconsulting.ch">
+        ✉ vs@setteconsulting.ch
+      </a>
+
+      <a href="https://www.setteconsulting.ch">
+        🌐 www.setteconsulting.ch
+      </a>
+    </div>
+
+    <button class="save" onclick="saveContact()">
+      Salva contatto
+    </button>
+
+    <p class="hint">
+      Biglietto da visita digitale NFC
+    </p>
+  </main>
+
+  <script>
+    function saveContact() {
+      const vcard = [
+        "BEGIN:VCARD",
+        "VERSION:3.0",
+        "N:Sette;Vincenzo;;;",
+        "FN:Vincenzo Sette",
+        "ORG:Sette Consulting GmbH",
+        "TITLE:Geschäftsführer",
+        "TEL;TYPE=CELL:+41762303330",
+        "EMAIL;TYPE=INTERNET:vs@setteconsulting.ch",
+        "URL:https://www.setteconsulting.ch",
+        "END:VCARD"
+      ].join("\r\n") + "\r\n";
+
+      const blob = new Blob(
+        [vcard],
+        { type: "text/vcard;charset=utf-8" }
+      );
+
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      link.href = url;
+      link.download = "Vincenzo_Sette.vcf";
+
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      setTimeout(() => URL.revokeObjectURL(url), 10000);
+    }
+  </script>
+</body>
+</html>
